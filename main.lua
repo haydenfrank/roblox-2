@@ -45,23 +45,23 @@ end
 
 function love.draw()
 
-	love.graphics.setColor(1, 0, 0)
-    love.graphics.polygon("line",
-        static.ground.b:getWorldPoints(static.ground.s:getPoints())
-    )
-    love.graphics.polygon("line",
-        static.wallr.b:getWorldPoints(static.wallr.s:getPoints())
-    )
-    love.graphics.polygon("line",
-        static.walll.b:getWorldPoints(static.walll.s:getPoints())
-    )
-    love.graphics.polygon("line",
-        static.roof.b:getWorldPoints(static.roof.s:getPoints())
-    )
-    love.graphics.polygon("line",
-        box.b:getWorldPoints(box.s:getPoints())
-    )
-    love.graphics.setColor(1, 1, 1)
+	-- love.graphics.setColor(1, 0, 0)
+    -- love.graphics.polygon("line",
+    --     static.ground.b:getWorldPoints(static.ground.s:getPoints())
+    -- )
+    -- love.graphics.polygon("line",
+    --     static.wallr.b:getWorldPoints(static.wallr.s:getPoints())
+    -- )
+    -- love.graphics.polygon("line",
+    --     static.walll.b:getWorldPoints(static.walll.s:getPoints())
+    -- )
+    -- love.graphics.polygon("line",
+    --     static.roof.b:getWorldPoints(static.roof.s:getPoints())
+    -- )
+    -- love.graphics.polygon("line",
+    --     box.b:getWorldPoints(box.s:getPoints())
+    -- )
+    -- love.graphics.setColor(1, 1, 1)
 
 	love.graphics.rectangle("fill", box.b:getX() - 30, box.b:getY() - 30, 60, 60)
 end
