@@ -1,42 +1,58 @@
 function love.load()
-	showHitboxes = true
 	world = love.physics.newWorld()
 	box = {}
 	box.b = love.physics.newBody(world, 200, 200, "dynamic")
 	box.b:setMass(10)
-	box.b:applyLinearImpulse(love.math.random(400, 600), love.math.random(400, 600))
-	box.s = love.physics.newRectangleShape(60, 60)
+	box.b:applyLinearImpulse(love.math.random(500, 600), love.math.random(500, 600))
+	box.s = love.physics.newRectangleShape(170, 75)
 	box.f = love.physics.newFixture(box.b, box.s)
 	box.f:setRestitution(1)
 	box.f:setUserData("Box")
 	box.f:setFriction(0)
 	box.b:setFixedRotation(true);
 
+	image = love.graphics.newImage('gfx/cd.png')
+	love.graphics.setBackgroundColor(1, 1, 1)
+
+	love.window.setTitle("Epic gay thing")
+
+	love.keyboard.setKeyRepeat(true)
+
 	static = {}
 
 	static.roof = {}
 	static.roof.b = love.physics.newBody(world, 200, 0, "static")
-	static.roof.s = love.physics.newRectangleShape(400, 5)
+	static.roof.s = love.physics.newRectangleShape(400, 1)
 	static.roof.f = love.physics.newFixture(static.roof.b, static.roof.s)
 	static.roof.f:setUserData("Roof")
 
 	static.wallr = {}
 	static.wallr.b = love.physics.newBody(world, 400, 200, "static")
-	static.wallr.s = love.physics.newRectangleShape(5, 400)
+	static.wallr.s = love.physics.newRectangleShape(1, 400)
 	static.wallr.f = love.physics.newFixture(static.wallr.b, static.wallr.s)
 	static.wallr.f:setUserData("WallR")
 
 	static.walll = {}
 	static.walll.b = love.physics.newBody(world, 0, 200, "static")
-	static.walll.s = love.physics.newRectangleShape(5, 400)
+	static.walll.s = love.physics.newRectangleShape(1, 400)
 	static.walll.f = love.physics.newFixture(static.walll.b, static.walll.s)
 	static.walll.f:setUserData("WallL")
 
 	static.ground = {}
 	static.ground.b = love.physics.newBody(world, 200, 400, "static")
-	static.ground.s = love.physics.newRectangleShape(400, 5)
+	static.ground.s = love.physics.newRectangleShape(400, 1)
 	static.ground.f = love.physics.newFixture(static.ground.b, static.ground.s)
 	static.ground.f:setUserData("Ground")
+end
+
+function love.keypressed(key)
+	vx, vy = box.b:getLinearVelocity()
+	if key == "w" then
+		box.b:applyLinearImpulse(vx * 1.25, vy * 1.25)
+	end
+	if key == "s" then
+		box.b:applyLinearImpulse(-vx * 0.75, -vy * 0.75)
+	end
 end
 
 function love.update(dt)
@@ -63,5 +79,6 @@ function love.draw()
     -- )
     -- love.graphics.setColor(1, 1, 1)
 
-	love.graphics.rectangle("fill", box.b:getX() - 30, box.b:getY() - 30, 60, 60)
+	-- love.graphics.rectangle("fill", box.b:getX() - 30, box.b:getY() - 30, 60, 60)
+	love.graphics.draw(image, box.b:getX() - 85, box.b:getY() - 37.25, 0, 0.5, 0.5)
 end
