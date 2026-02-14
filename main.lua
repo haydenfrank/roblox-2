@@ -47,11 +47,17 @@ end
 
 function love.keypressed(key)
 	vx, vy = box.b:getLinearVelocity()
+	r = love.graphics.getBackgroundColor()
 	if key == "w" then
-		box.b:applyLinearImpulse(vx * 1.25, vy * 1.25)
-	end
-	if key == "s" then
-		box.b:applyLinearImpulse(-vx * 0.75, -vy * 0.75)
+		box.b:applyLinearImpulse(vx * 1.5, vy * 1.5)
+	elseif key == "s" then
+		box.b:applyLinearImpulse(-vx * 0.5, -vy * 0.5)
+	elseif key == "d" then
+		if r == 1 then
+			love.graphics.setBackgroundColor(0, 0, 0)
+		else
+			love.graphics.setBackgroundColor(1, 1, 1)
+		end
 	end
 end
 
