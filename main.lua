@@ -26,6 +26,11 @@ function love.load()
 	walls.shape = love.physics.newChainShape(true, 0, 0, 400, 0, 400, 400, 0, 400)
 	walls.fixture = love.physics.newFixture(walls.body, walls.shape)
 	sx, sy = 0.5, 0.5
+
+	--For use in keypress a so box cannot get too small
+	--Using image:getWidth() didn't seem to work correctly for some reason
+	--Maybe you guys can figure it out idk
+	sizePress = 0
 end
 
 function love.keypressed(key)
@@ -42,29 +47,35 @@ function love.keypressed(key)
 			love.graphics.setBackgroundColor(1, 1, 1)
 		end
 	elseif key == "q" then
-		sy = sy + 0.01
-		sx = sx + 0.01
-		if box.f then
-			box.f:destroy()
+		if sizePress > -40 then
+			sy = sy + 0.01
+			sx = sx + 0.01
+			if box.f then
+				box.f:destroy()
+			end
+			local w = image:getWidth() * sx
+			local h = image:getHeight() * sy
+			box.s = love.physics.newRectangleShape(w, h)
+			box.f = love.physics.newFixture(box.b, box.s)
+			box.f:setRestitution(1)
+			box.f:setFriction(0)
+			sizePress = sizePress - 1
 		end
-		local w = image:getWidth() * sx
-		local h = image:getHeight() * sy
-		box.s = love.physics.newRectangleShape(w, h)
-		box.f = love.physics.newFixture(box.b, box.s)
-		box.f:setRestitution(1)
-		box.f:setFriction(0)
 	elseif key == "a" then
-		sy = sy - 0.01
-		sx = sx - 0.01
-		if box.f then
-			box.f:destroy()
+		if sizePress < 40 then
+			sy = sy - 0.01
+			sx = sx - 0.01
+			if box.f then
+				box.f:destroy()
+			end
+			local w = image:getWidth() * sx
+			local h = image:getHeight() * sy
+			box.s = love.physics.newRectangleShape(w, h)
+			box.f = love.physics.newFixture(box.b, box.s)
+			box.f:setRestitution(1)
+			box.f:setFriction(0)
+			sizePress = sizePress + 1
 		end
-		local w = image:getWidth() * sx
-		local h = image:getHeight() * sy
-		box.s = love.physics.newRectangleShape(w, h)
-		box.f = love.physics.newFixture(box.b, box.s)
-		box.f:setRestitution(1)
-		box.f:setFriction(0)
 	end
 end
 
