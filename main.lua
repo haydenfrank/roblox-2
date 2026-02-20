@@ -17,7 +17,7 @@ function love.load()
 
 	love.graphics.setBackgroundColor(1, 1, 1)
 
-	love.window.setTitle("Epic gay thing")
+	love.window.setTitle("Roblox 2")
 
 	love.keyboard.setKeyRepeat(true)
 
