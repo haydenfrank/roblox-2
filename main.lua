@@ -1,6 +1,7 @@
 function love.load()
-	boxWidth = 170
-	boxHeight = 75
+	image = love.graphics.newImage("gfx/cd.png")
+	boxWidth = image:getWidth() / 2
+	boxHeight = image:getHeight() / 2
 
 	world = love.physics.newWorld()
 	box = {}
@@ -14,7 +15,6 @@ function love.load()
 	box.f:setFriction(0)
 	box.b:setFixedRotation(true)
 
-	image = love.graphics.newImage("gfx/cd.png")
 	love.graphics.setBackgroundColor(1, 1, 1)
 
 	love.window.setTitle("Epic gay thing")
@@ -41,9 +41,21 @@ function love.keypressed(key)
 		else
 			love.graphics.setBackgroundColor(1, 1, 1)
 		end
-	elseif key == "a" then
+	elseif key == "q" then
 		sy = sy + 0.01
 		sx = sx + 0.01
+		if box.f then
+			box.f:destroy()
+		end
+		local w = image:getWidth() * sx
+		local h = image:getHeight() * sy
+		box.s = love.physics.newRectangleShape(w, h)
+		box.f = love.physics.newFixture(box.b, box.s)
+		box.f:setRestitution(1)
+		box.f:setFriction(0)
+	elseif key == "a" then
+		sy = sy - 0.01
+		sx = sx - 0.01
 		if box.f then
 			box.f:destroy()
 		end
